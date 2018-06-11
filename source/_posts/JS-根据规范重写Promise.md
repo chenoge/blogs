@@ -118,3 +118,102 @@ function Promise(fn) {
 }
 ```
 
+<br/>
+
+# 三、封装的代码
+
+```javascript
+// @/tool/axios.js
+import qs from 'qs';
+import iView from 'iview';
+import axios from 'axios';
+
+export default function (config) {
+  if (config.isFormData) {
+    config.data = qs.stringify(config.data);
+    !config.headers && (config.headers = {});
+    config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+  }
+
+  return axios(config).then(
+    res => {
+      if (res.data.status >= 1) {
+        config.showSuccess && iView.Notice.success({
+          duration: 2,
+          title: '通知',
+          desc: res.data.msg
+        });
+        return Promise.resolve(res);
+      }
+
+      if (res.data.status === 0) {
+        !config.hiddenError && iView.Notice.error({
+          duration: 2,
+          title: '提示',
+          desc: res.data.msg
+        });
+        // 如果直接返回res，则下一个新的promise，一定会直接执行onFulfilled
+        // 返回一个Promise.resolve(res)或Promise.reject(res)，则新的promise的状态将由返回的状态决定
+        return Promise.reject(res);
+      }
+
+      if (res.data.status < 0) {
+        location.href = `#/login?returnUrl=${location.href}`;
+        localStorage.removeItem('user');
+        return Promise.reject(res);
+      }
+    }
+  );
+}
+```
+
+```javascript
+// @/tool/Admin.js
+import Axios from '@/tool/axios.js';
+import {dateFormat} from '@/tool/transform.js';
+
+export default class Admin {
+  constructor(admin) {
+    admin = admin || {};
+    this.id = admin.id || -1;
+    this.username = admin.username || '';
+    this.password = admin.password || '';
+  }
+
+  login() {
+    const that = this;
+    return Axios({
+      url: `/api/user/login`,
+      method: 'put',
+      isFormData: true,
+      data: {
+        username: that.username,
+        password: that.password
+      }
+    }).then(
+      res => Promise.resolve(res),
+      err => Promise.reject(err)
+    );
+  }
+}
+```
+
+```javascript
+// login.vue
+import Admin from '@/tool/Admin.js'
+that.admin.login().then(
+    res => {
+        
+    },
+    err => {
+        console.error(err);
+    }
+);
+```
+
+```javascript
+ // 整体调用等同于
+ axios(config).then().then().then();
+ // 每一个.then()都返回一个新的promise
+```
+
