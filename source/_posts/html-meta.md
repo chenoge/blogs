@@ -151,9 +151,15 @@ meta标签中http-equiv属性语法格式是：
 说明：用于告知浏览器以何种版本来渲染页面
 
 ```html
-//指定IE和Chrome使用最新版本渲染当前页面
+//如果安装了GCF插件，则使用GCF来渲染页面，否则使用最高版本的IE内核进行渲染
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/> 
 ```
+
+注：
+
+- `http-equiv=”X-UA-Compatible”`是`IE8`的专用标记，是用来指定`IE8`浏览器模**拟某个特定版本IE浏览器的渲染方式**，以此来解决IE浏览器的兼容问题。 
+- `X-UA-Compatible` 中的`IE=edge`指令，可以让IE或者调用IE内核的浏览器，使用**标准模式**渲染网页，注意这里和“Edge浏览器”无关，只是恰巧重名罢了。
+- `Google Chrome Frame`(谷歌内嵌浏览器框架GCF)：使用的是Google Chrome浏览器内核来渲染，而且支持IE6、7、8等多个版本的IE浏览器 
 
 <br/>
 

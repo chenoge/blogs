@@ -118,6 +118,8 @@ function Promise(fn) {
 }
 ```
 
+注：异步处理上，没有达到要求。具体参见[事件循环](/2017/11/09/JS-事件循环-promise和setTimeOut/)
+
 <br/>
 
 # 三、封装的代码

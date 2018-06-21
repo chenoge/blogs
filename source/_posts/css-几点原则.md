@@ -83,6 +83,30 @@ a {
 
 防止过度嵌套的一个策略是名为[BEM（Block Element Modifier）](https://link.zhihu.com/?target=https%3A//csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/)的命名策略 
 
+BEM的意思就是块（block）、元素（element）、修饰符（modifier），是由Yandex团队提出的一种CSS Class 命名方法。 
+
+类似于：
+
+```css
+.block{}	
+.block__element{}		
+.block--modifier{}
+.block__element--modifie{}	
+
+/**或者*/
+
+.type-block{}
+.type-block__elementr{}
+.type-block_modifier{}
+.type-block__element_modifier{}
+```
+
+- block：封装一个**独立的实体**，它本身是有意义的。尽管块可以嵌套并相互交互，但在语义上它们保持平等; 没有优先级或层次结构 。
+- 块的一部分，**没有独立的含义**。任何元素都在语义上与其块相关联。 
+- 在块或元素上的标志。使用它们来改变**外观，行为或状态**。 
+
+<br/>
+
 ```html
 <div class=”profile”>
     <img src=”person.jpg” class=”profile__photo”/>
