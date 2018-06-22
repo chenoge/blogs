@@ -44,15 +44,15 @@ document.addEventListener('copy', function(e) {
 const btn = document.querySelector('#btn');
 
 btn.addEventListener('click', () => {
-    const input = document.createElement('input');  
+    const input = document.createElement('input');  
     input.setAttribute('readonly', 'readonly');
     input.setAttribute('value', 'hello world');
 
-    document.body.appendChild(input);  
+    document.body.appendChild(input);  
     input.setSelectionRange(0, 9999);
 
-    if (document.execCommand('copy')) {    
-        document.execCommand('copy');  
+    if (document.execCommand('copy')) {    
+        document.execCommand('copy');  
     }
     
     document.body.removeChild(input);
