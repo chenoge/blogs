@@ -41,6 +41,8 @@ tags: [css,composite,渲染]
 
 <br/>
 
+<!--more--> 
+
 ## 二、浏览器渲染原理
 
 在讨论 Composite 之前，有必要先简单了解下一些浏览器（本文只是针对 Chrome 来说）的渲染原理，方便对之后一些概念的理解。更多详细的内容可以参阅 [GPU Accelerated Compositing in Chrome](http://www.chromium.org/developers/design-documents/gpu-accelerated-compositing-in-chrome)

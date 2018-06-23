@@ -63,6 +63,8 @@ console.log('[demo] session is starting at port 3000')
 
 <br/>
 
+<!--more--> 
+
 # 二、koa-session-minimal源码
 
 #### 1、目录结构

@@ -34,6 +34,8 @@ object-position : css property determines the alignment of the replaced element 
 
 <br/>
 
+<!--more--> 
+
 # 三、object-fit
 
 object-fit具体有5个值：

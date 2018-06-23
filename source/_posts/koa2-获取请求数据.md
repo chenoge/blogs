@@ -51,6 +51,8 @@ app.listen(3000, () => {
 
 <br/>
 
+<!--more--> 
+
 # 二、post请求
 
 **对于POST请求的处理，koa2没有封装获取参数的方法**，需要通过解析上下文context中的原生node.js请求对象req，将POST表单数据解析成**query string**（例如：a=1&b=2&c=3），再将query string 解析成**JSON格式**（例如：{"a":"1", "b":"2", "c":"3"}） 

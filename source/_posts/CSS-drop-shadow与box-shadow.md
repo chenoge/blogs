@@ -17,6 +17,8 @@ tags: [css,drop-shadow,box-shadow]
 
 <br/>
 
+<!--more--> 
+
 # 二、利用box-shadow实现遮罩层
 
 ``` css

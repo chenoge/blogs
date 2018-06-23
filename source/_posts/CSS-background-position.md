@@ -17,6 +17,8 @@ tags: [css,background-position]
 
 <br/>
 
+<!--more--> 
+
 # 二、特别注意
 
 background-position取值除了长度值（<length>）和关键词之外，还可以取值为百分比值。

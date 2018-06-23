@@ -66,6 +66,8 @@ tags: [BFC,IFC]
 
 <br/>
 
+<!--more--> 
+
 # 六、外边距合并
 
 **块级元素**的[上外边距](https://developer.mozilla.org/zh-CN/docs/Web/CSS/margin-top)和[下外边距](https://developer.mozilla.org/zh-CN/docs/Web/CSS/margin-bottom)有时会合并（或折叠）为一个外边距，其大小取其中的最大者，这种行为称为**外边距折叠**（margin collapsing） 

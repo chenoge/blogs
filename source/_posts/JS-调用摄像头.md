@@ -48,7 +48,7 @@ navigator.mediaDevices.getUserMedia(constraints)
 
    浏览器会试着满足这个请求参数，但是如果无法准确满足此请求中参数要求或者用户选择覆盖了请求中的参数时，有可能返回其它的分辨率。 
 
-   
+   <!--more--> 
 
 3. 强制要求获取特定的尺寸时，可以使用关键字min, max, 或者 exact(就是 min == max). 以下参数表示要求获取最低为1280x720的分辨率。 
 

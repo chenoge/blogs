@@ -44,6 +44,8 @@ Object.defineProperty(person, 'name', {
 
 <br/>
 
+<!--more--> 
+
 # 三、存取描述符属性
 
 当使用存取器描述属性的特性的时候，允许设置以下特性属性： 

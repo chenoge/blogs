@@ -22,6 +22,8 @@ tags: [css,position]
 
 <br/>
 
+<!--more--> 
+
 # 二、取值
 
 - `static`

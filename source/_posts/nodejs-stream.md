@@ -34,6 +34,8 @@ rs.on('error', function (err) {
 
 <br/>
 
+<!--more--> 
+
 # 二、写入
 
 要以流的形式写入文件，只需要不断调用write()方法，最后以end()结束： 

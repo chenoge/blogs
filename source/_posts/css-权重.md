@@ -26,14 +26,12 @@ tags: [css,权重]
 伪元素选择器:
 
 - ::after 
-
 - ::before 
-
 - ::first-letter 
-
 - ::first-line 
-
 - ::selecton
+
+<!--more--> 
 
 
 

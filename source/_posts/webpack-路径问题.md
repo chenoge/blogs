@@ -61,6 +61,8 @@ output: {
 
 <br/>
 
+<!--more--> 
+
 #### 2、ouput.publicPath 
 
 <font color=#A52A2A size=4 >**静态资源最终访问路径 = output.publicPath + 资源loader或插件等配置路径** </font>
@@ -208,10 +210,10 @@ module.exports = {
           name: 'img/[name].[hash:7].[ext]'
         }
       },
-      {  
-        test: /\.jpeg$/,
-        use: 'url-loader?limit=1024&name=[path][name].[ext]&outputPath=img/&publicPath=output/',
-      } 
+      {  
+        test: /\.jpeg$/,
+        use: 'url-loader?limit=1024&name=[path][name].[ext]&outputPath=img/&publicPath=output/',
+      } 
 	]
   },
 };

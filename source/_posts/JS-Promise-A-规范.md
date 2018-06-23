@@ -49,6 +49,8 @@ tags: [javaScript,promise,规范]
 
 <br/>
 
+<!--more--> 
+
 # 三、Then方法
 
 一个 promise 必须提供一个 then 方法以访问其当前值、终值和据因。promise 的 then 方法接受两个参数：

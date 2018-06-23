@@ -33,6 +33,8 @@ location ^~ /static_js/
 
 <br/>
 
+<!--more--> 
+
 # 二、proxy_set_header
 
 #### 1、原理介绍

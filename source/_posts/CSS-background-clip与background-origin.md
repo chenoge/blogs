@@ -20,6 +20,8 @@ tags: [css,background-clip,background-origin]
 
 **对于background-origin，其关键字是指将背景图片放置到border范围内，padding范围内、content范围内，其得到的结果是完整的背景(原理与图片的缩放相似)。与background-clip不同的是，它只是单纯设置背景图片的边界，并不会对背景颜色造成影响。**<br/>
 
+<!--more--> 
+
 #### 下面就拿其中一个属性对比一下： 
 
 ``` css

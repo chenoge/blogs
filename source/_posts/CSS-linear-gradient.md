@@ -22,6 +22,8 @@ background-image: linear-gradient([<angle>|<side-or-corner>,]?<color-stop>[,<col
 
 <br/>
 
+<!--more--> 
+
 # 二、angle
 
 ![gradient-1](CSS-linear-gradient\gradient-1.png)

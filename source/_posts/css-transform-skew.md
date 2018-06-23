@@ -13,6 +13,8 @@ tags: [css,transform]
 
 <br/>
 
+<!--more--> 
+
 #### skewX(30deg) 
 
 ![](css-transform-skew\8da73888f08c712cd2b86af3e02b5d0b_hd.jpg)

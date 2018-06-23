@@ -26,6 +26,8 @@ btn.addEventListener('click', function() {
 
 <br/>
 
+<!--more--> 
+
 ```javascript
 document.addEventListener('copy', function(e) {
 

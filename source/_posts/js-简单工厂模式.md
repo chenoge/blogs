@@ -55,6 +55,8 @@ Blog.prototype.alertInfo = function() {
 
 <br/>
 
+<!--more--> 
+
 # 四、混合模式（原型模式 + 构造函数模式）
 
 ```javascript

@@ -17,6 +17,8 @@ tags: [nginx,location]
 
 <br/>
 
+<!--more--> 
+
 # 二、匹配模式及顺序
 
 #### 1、模式

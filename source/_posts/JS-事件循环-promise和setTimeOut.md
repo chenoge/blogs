@@ -87,6 +87,8 @@ tags: [javaScript,事件循环,event-loop,promise,setTimeOut]
 
 <br/>
 
+<!--more--> 
+
 [原文](https://www.cnblogs.com/jymz/p/7900439.html)
 
 ```javascript

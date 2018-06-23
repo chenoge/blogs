@@ -7,8 +7,8 @@ tags: [nginx,rewrite]
 # 一、rewrite语法
 
 ```nginx
-    rewrite    <regex>    <replacement>     [flag]       
-    # 关键字     正则       替代内容         flag标记
+    rewrite    <regex>    <replacement>     [flag]       
+    # 关键字     正则       替代内容         flag标记
 ```
 
 - flag标记说明：
@@ -19,9 +19,9 @@ tags: [nginx,rewrite]
 
 ```nginx 
 rewrite ^/(.*) http://www.czlun.com/$1 permanent;
-# regex部分是 ^/(.*) ，这是一个正则表达式，匹配完整的域名和后面的路径地址
+# regex部分是 ^/(.*) ，这是一个正则表达式，匹配完整的域名和后面的路径地址
 # replacement部分是http://www.czlun.com/$1，$1是取自regex部分()里的内容。匹配成功后跳转到的URL。
-# flag部分 permanent表示永久301重定向标记，即跳转到新的 http://www.czlun.com/$1 地址上
+# flag部分 permanent表示永久301重定向标记，即跳转到新的 http://www.czlun.com/$1 地址上
 ```
 
 <br/>
@@ -43,7 +43,7 @@ rewrite ^/(.*) http://www.czlun.com/$1 permanent;
 server {
     listen 80;
     server_name abc.com www.abc.com;
-    if ( $host != 'www.abc.com'  ) {
+    if ( $host != 'www.abc.com'  ) {
         rewrite ^/(.*) http://www.abc.com/$1 permanent;
     }
     location / {
@@ -56,6 +56,8 @@ server {
 ```
 
 <br/>
+
+<!--more--> 
 
 # 三、逻辑判断
 
@@ -97,36 +99,36 @@ server {
 | $document_uri       | 与$uri相同。                                                 |
 
 ```nginx
-# 限制浏览器访问  
-if ($http_user_agent ~ Firefox) {   
-    rewrite ^(.*)$ /firefox/$1 break;   
+# 限制浏览器访问  
+if ($http_user_agent ~ Firefox) {   
+    rewrite ^(.*)$ /firefox/$1 break;   
 }
 
-if ($http_user_agent ~ MSIE) {   
-    rewrite ^(.*)$ /msie/$1 break;   
-}      
+if ($http_user_agent ~ MSIE) {   
+    rewrite ^(.*)$ /msie/$1 break;   
+}      
 
-if ($http_user_agent ~ Chrome) {   
-    rewrite ^(.*)$ /chrome/$1 break;   
-}  
+if ($http_user_agent ~ Chrome) {   
+    rewrite ^(.*)$ /chrome/$1 break;   
+}  
 
-# 限制IP访问  
-if  ($remote_addr = 192.168.197.142) {  
-    return 403;  
+# 限制IP访问  
+if  ($remote_addr = 192.168.197.142) {  
+    return 403;  
 }
 
 # set指令是设置变量用的,可以用来达到多条件判断时作标志用
 # 判断IE并重写,且不用break;我们用set变量来达到目的
-if ($http_user_agent ~* msie) {  
-    set $isie 1;  
+if ($http_user_agent ~* msie) {  
+    set $isie 1;  
 }
 
-if ($fastcgi_script_name = ie.html) {  
-    set $isie 0;  
-}  
-		  
-if ($isie 1) {  
-    rewrite ^.*$ ie.html;  
-}  
+if ($fastcgi_script_name = ie.html) {  
+    set $isie 0;  
+}  
+		  
+if ($isie 1) {  
+    rewrite ^.*$ ie.html;  
+}  
 ```
 

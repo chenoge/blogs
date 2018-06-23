@@ -25,6 +25,8 @@ process.cwd();	//	'/private/tmp'
 
 <br/>
 
+<!--more--> 
+
 **JavaScript程序是由事件驱动执行的单线程模型，Node.js也不例外。**如果我们想要在下一次事件循环中执行代码，可以调用**process.nextTick()**： 
 
 ```javascript

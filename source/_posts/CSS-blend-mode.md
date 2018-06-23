@@ -31,6 +31,8 @@ mix-blend-mode: unset;           //复原
 
 <br/>
 
+<!--more--> 
+
 # 二、background-blend-mode 
 
 定义该元素的<font color=#A52A2A size=4 >**背景图片</font>**，以及<font color=#A52A2A size=4 >**背景色**</font>如何混合，属性值和mix-blend-mode一样。

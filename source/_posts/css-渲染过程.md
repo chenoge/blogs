@@ -26,6 +26,8 @@ tags: [css,渲染]
 
 <br/>
 
+<!--more--> 
+
 # 四、Chrome渲染部分的实际含义
 
 从上面的流程图中不难看出，Chrome渲染主要包括`Parse Html`、`Recalculate Style`、`Layout`、`Rasterizer`、`Paint`、`Image Decode`、`Image Resize`和`Composite Layers`等。简单了解一下其含义，以便后续内容的更好理解。 

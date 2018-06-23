@@ -15,7 +15,7 @@ tags: [css]
 }
 ```
 
-
+<!--more--> 
 
 # 2. currentColor是color属性的值
 

@@ -22,6 +22,8 @@ tags: [retina,视网膜图]
 
 <br/>
 
+<!--more--> 
+
 # 二、 1px border问题
 
 一张图来解释： 

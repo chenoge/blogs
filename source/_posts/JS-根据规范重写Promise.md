@@ -122,6 +122,8 @@ function Promise(fn) {
 
 <br/>
 
+<!--more--> 
+
 # 三、封装的代码
 
 ```javascript
