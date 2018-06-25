@@ -16,7 +16,7 @@ http://localhost/appImg/abc.jpg
 location ^~ /appImg/ {
     root /home/nginx;
 }
-# 这个location相当于访问服务器上的文件路径：/home/nginx/appImg/abc.jpg 
+# 这个location相当于访问服务器上的文件路径：/home/nginx/appImg/abc.jpg 
 ```
 
 ```nginx
