@@ -43,4 +43,24 @@ tags: [css,权重]
 
 
 
-注意：**通配选择符**（universal selector）(*), **关系选择符**（combinators） (+, >, ~, ' ')  和 **否定伪类**（negation pseudo-class）(:not()) 对优先级没有影响。（但是，在 :not() 内部声明的选择器是会影响优先级）。 
+注意：
+
+- **通配选择符**（universal selector）(*), **关系选择符**（combinators） (+, >, ~, ' ')  和 **否定伪类**（negation pseudo-class）(:not()) 对优先级没有影响。（但是，在 :not() 内部声明的选择器是会影响优先级）。 
+
+- `@media`媒体查询相当于逻辑`if`的作用，但不影响优先级。**媒体查询主要利用属性覆盖产生效果，因此媒体查询样式的位置特别重要。**
+
+  ```css
+  @media screen and (max-width: 500px) {
+      body {
+          background-color:red;
+      }
+  }
+  
+  body {
+      background-color:lightgreen;
+  }
+  
+  /*如果媒体查询放在普通样式之前，样式无法进行覆盖，没有起到相应的效果*/
+  ```
+
+  

@@ -126,3 +126,88 @@ navigator.mediaDevices.getUserMedia(constraints)
    ```
 
    
+
+```html
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style type="text/css">
+    body {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+
+    video {
+        width: 100vw;
+        height: 60vw;
+    }
+
+    button {
+        display: inline-block;
+        width: 200px;
+        line-height: 2;
+        font-size: 20px;
+        margin: 15px;
+    }
+    </style>
+</head>
+
+<body>
+    <video controls></video>
+    <button onclick="setFront()">front</button>
+    <button onclick="setRear()">rear</button>
+    <button onclick="pause()">stop</button>
+    <script>
+    let constraints = { audio: true, video: true };
+    let recorder = null;
+    let video = null;
+
+    function pause() {
+        recorder.stop();
+    }
+
+    function setFront() {
+        constraints = { audio: true, video: { facingMode: "user" } };
+        author();
+    }
+
+    function setRear() {
+        constraints = { audio: true, video: { facingMode: { exact: "environment" } } };
+        author();
+    }
+
+    function author() {
+        constraints.video.frameRate = { ideal: 10, max: 15 };
+        navigator.mediaDevices.getUserMedia(constraints)
+            .then(function(mediaStream) {
+                console.log('mediaStream')
+                video = document.querySelector('video');
+                video.src = URL.createObjectURL(mediaStream);
+                video.onloadedmetadata = function(e) {
+                    recorder = new MediaRecorder(mediaStream);
+                    recorder.ondataavailable = function() {
+                        video.pause();
+                        video.src = URL.createObjectURL(event.data);
+                        video.onloadedmetadata = function(e) {
+                            video.play();
+                        };
+                    }
+                    video.play();
+                    recorder.start();
+                };
+            })
+            .catch(function(err) {
+                console.log(err.name + ": " + err.message);
+            });
+    }
+
+    author();
+    </script>
+</body>
+
+</html>
+```
+
