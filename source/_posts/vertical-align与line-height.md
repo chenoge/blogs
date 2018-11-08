@@ -10,75 +10,87 @@ tags: [vertical-align,line-height]
 
 <br/>
 
-##### 相对父元素的值
+#### 相对父元素的值
 
 这些值使元素相对其父元素垂直对齐：
 
 - `baseline`
 
-  使元素的基线与父元素的基线对齐。HTML规范没有详细说明部分[可替换元素](https://developer.mozilla.org/zh-CN/docs/Web/CSS/Replaced_element)的基线，如[`textarea`](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/textarea) ，这意味着这些元素使用此值的表现因浏览器而异。
+  使元素的**基线**与父元素的**基线**对齐。HTML规范没有详细说明部分[可替换元素](https://developer.mozilla.org/zh-CN/docs/Web/CSS/Replaced_element)的基线，如[`textarea`](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/textarea) ，这意味着这些元素使用此值的表现因浏览器而异。
 
   
 
 - `sub`
 
-  使元素的基线与父元素的下标基线对齐。
+  使元素的**基线**与父元素的**下标基线**对齐。
 
   
 
 - `super`
 
-  使元素的基线与父元素的上标基线对齐。
+  使元素的**基线**与父元素的**上标基线**对齐。
 
   
 
 - `text-top`
 
-  使元素的顶部与父元素的字体顶部对齐。
+  使元素的**顶部**与父元素的**字体顶部**对齐。
 
   
 
 - `text-bottom`
 
-  使元素的底部与父元素的字体底部对齐。
+  使元素的**底部**与父元素的**字体底部**对齐。
 
   
 
 - `middle`
 
-  使元素的中部与父元素的基线加上父元素x-height（译注：[x高度](https://www.zhangxinxu.com/wordpress/2015/06/about-letter-x-of-css/)）的一半对齐。
+  使元素的**中部**与父元素的**基线加上父元素x-height**（译注：[x高度](https://www.zhangxinxu.com/wordpress/2015/06/about-letter-x-of-css/)）的一半对齐。
 
   
 
 - [`height`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/length)
 
-  使元素的基线对齐到父元素的基线之上的给定长度。可以是负数。
+  使元素的**基线**对齐到父元素的**基线之上的给定长度**。可以是负数。
 
   
 
 - [`percentage`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/percentage)
 
-  使元素的基线对齐到父元素的基线之上的给定百分比，该百分比是[`line-height`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/line-height)属性的百分比。可以是负数。
+  使元素的**基线**对齐到父元素的**基线之上的给定百分比**，该百分比是[`line-height`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/line-height)属性的百分比。可以是负数。
 
   <br/>
 
-##### 相对行的值
+  <!--more-->
+
+#### 相对行的值
 
 下列值使元素相对整行垂直对齐：
 
 - `top`
 
-  使元素及其后代元素的顶部与整行的顶部对齐。
+  使元素及其后代元素的**顶部**与整行的**顶部**对齐。
 
   
 
 - `bottom`
 
-  使元素及其后代元素的底部与整行的底部对齐。
+  使元素及其后代元素的**底部**与整行的**底部**对齐。
 
   
 
-**没有基线的元素，使用外边距的下边缘替代**
+注：特别重要一点，**没有基线的元素，使用外边距的下边缘替代**，解析如下
+
+<br/>
+
+#### **`inline-block`和`baseline`** 
+
+```markdown
+The baseline of an ‘inline-block’ is the baseline of its last line box in the normal flow, unless it has either no in-flow line boxes or if its ‘overflow’ property has a computed value other than ‘visible’, in which case the baseline is the bottom margin edge.
+```
+
+**一个`inline-block`元素，如果里面没有`inline`内联元素，或者`overflow`不是`visible`，则该元素的`基线`就是其margin底边缘，否则，其基线就是元素里面`最后一行内联元素`的基线。** 
 
 <br/>
 
