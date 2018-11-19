@@ -4,16 +4,27 @@ date: 2018-04-10 17:41:04
 tags: [nginx,rewrite]
 ---
 
-# 一、rewrite语法
+# 一、ngx_http_rewrite_module
+
+`rewrite`模块即`ngx_http_rewrite_module`模块，主要功能是改写请求URI，是Nginx默认安装的模块。rewrite模块会根据`PCRE正则`匹配重写URI，或者直接返回资源（`200|404`），或者发起内部跳转再匹配location，或者直接做30x重定向返回客户端。 `ngx_http_rewrite_module`模块的指令有`break`, `if`, `return`, `rewrite`, `set `。
+
+<br/>
+
+<!--more--> 
+
+# 二、rewrite语法
 
 ```nginx
     rewrite    <regex>    <replacement>     [flag]       
     # 关键字     正则       替代内容         flag标记
+    # 可以在server, location, if
 ```
 
 - flag标记说明：
   - **last**  #本条规则匹配完成后，**继续向下匹配新的location URI规则**
-  - **break**  #本条规则匹配完成即终止，**不再匹配后面的任何规则**
+    - 跳转的总次数不能超过10次 
+  - **break**  #本条规则匹配完成即终止，**不再匹配后面的任何规则**。
+    - 请求内容存在，返回200；请求内容不存在，则返回404。 
   - **redirect**  #返回**302临时重定向**，浏览器地址会**显示跳转后的URL地址**
   - **permanent**  #返回**301永久重定向**，浏览器地址栏会**显示跳转后的URL地址**
 
@@ -24,9 +35,56 @@ rewrite ^/(.*) http://www.czlun.com/$1 permanent;
 # flag部分 permanent表示永久301重定向标记，即跳转到新的 http://www.czlun.com/$1 地址上
 ```
 
+```nginx
+rewrite /test/.* /index.html break;
+
+location /test/ {
+    return 508;
+}  
+
+location /break/ {  
+    rewrite ^/break/(.*) /test/$1 break;
+    return 402;
+}
+
+location /last/ {  
+    rewrite ^/last/(.*) /test/$1 last;
+    return 403;
+}
+```
+
+```markdown
+请求1： http://test.com/break/index.php   返回：404 
+请求2： http://test.com/last/index.php    返回：508 
+请求3： http://test.com/test/index.php    返回：200 (返回index.html) 
+
+当请求break时，如匹配内容存在的话，可以直接请求成功，返回200；而如果请求内容不存在，则返回404
+当请求为last的时候，会对重写的新uri重新发起请求，只是重新查找location匹配，如请求2返回508
+```
+
 <br/>
 
-## 二、正则表达式
+
+
+# 三、return语法
+
+```nginx
+return code [text] | code URL | URL;
+# 可以在server, location, if
+```
+
+停止任何的进一步处理，并且将指定状态码返回给客户端
+
+return的参数有四种形式：
+
+- `return code` 此时，响应内容就是nginx所默认的，比如503 Service Temporarily Unavailable
+- `return code text` 因为要带响应内容，因此code不能是具有跳转功能的30x
+- `return code URL` 此时URI可以为URI做内部跳转，也可以是具有`http://`或者`https://`等协议的绝对URL，直接返回客户端，而code是30x
+- `return URL` 此时code默认为302，而URL必须是带`http://`等协议的绝对URL
+
+<br/>
+
+## 四、`PCRE正则`表达式
 
 |   字符    | 描述                                                         |
 | :-------: | :----------------------------------------------------------- |
@@ -57,9 +115,7 @@ server {
 
 <br/>
 
-<!--more--> 
-
-# 三、逻辑判断
+# 五、逻辑判断
 
 | 操作符  | 含义                                                         |
 | ------- | ------------------------------------------------------------ |
@@ -72,7 +128,7 @@ server {
 
 <br/>
 
-# 四、常用变量
+# 六、常用变量
 
 | 变量                | 含义                                                         |
 | :------------------ | ------------------------------------------------------------ |
