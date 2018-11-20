@@ -77,11 +77,15 @@ theme: NexT-Mist
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-     type: git
-     repo: git@github.com:chenoge/chenoge.github.io.git
-     branch: master
+  type: git
+  repo: git@github.com:chenoge/chenoge.github.io.git
+  branch: master
 
 leancloud_visitors:
   enable: true
   app_id: NOQkpOAGXaqJyCft6xt89YyN-gzGzoHsz
   app_key: SyLl8HmPYq0DG30Sf5PhJaOB
+
+search:
+  path: search.xml
+  field: post
