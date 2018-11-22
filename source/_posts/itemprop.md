@@ -25,6 +25,14 @@ tags: [itemprop]
 </div>
 ```
 
+|                   | Item               |                                          |
+| ----------------- | ------------------ | ---------------------------------------- |
+| **itemprop name** | **itemprop value** |                                          |
+| itemprop          | name               | Avatar                                   |
+| itemprop          | director           | James Cameron                            |
+| itemprop          | genre              | Science fiction                          |
+| itemprop          | trailer            | ../movies/avatar-theatrical-trailer.html |
+
 <br/>
 
 ### 三、`itemscope` 
