@@ -4,7 +4,7 @@ date: 2018-10-13 13:34:10
 tags: [document.body.scrollTop,document.documentElement.scrollTop]
 ---
 
-### 古代浏览器间的 scrollTop差异:
+#### 古代浏览器间的 scrollTop差异
 
 - **IE6/7/8：**使用 `document.documentElement.scrollTop`； 
 - **IE9及以上：**使用`window.pageYOffset`或者`document.documentElement.scrollTop `
@@ -20,7 +20,7 @@ let sTop = document.body.scrollTop || document.documentElement.scrollTop;
 
 
 
-- 2018-10-30更新：**浏览器 =》古代浏览器**
+- ##### 2018-10-30更新：**浏览器 =》古代浏览器**
 
   **chrome:**
 
@@ -32,7 +32,7 @@ let sTop = document.body.scrollTop || document.documentElement.scrollTop;
 
 <br/>
 
-# document.compatMode
+#### document.compatMode
 
 ```
 mode = document.compatMode
@@ -45,7 +45,7 @@ mode = document.compatMode
 
 <br/>
 
-# Document.scrollingElement
+#### Document.scrollingElement
 
 **scrollingElement** （ [`Document`](https://developer.mozilla.org/zh-CN/docs/Web/API/Document) 的只读属性）返回滚动文档的 [`Element`](https://developer.mozilla.org/zh-CN/docs/Web/API/Element) 对象的引用。 
 
@@ -55,7 +55,7 @@ mode = document.compatMode
 
 <br/>
 
-# Window.scrollTo()
+#### Window.scrollTo
 
 ```javascript
 // window.scrollTo(x-coord,y-coord )
@@ -79,3 +79,17 @@ window.scrollTo({
     - 默认值auto，实测效果等同于instant
 
 **注：window.scrollTo滚动的容器为`document.documentElement`**
+
+<br/>
+
+#### window.scrollBy
+
+```javascript
+window.scrollBy(x-coord, y-coord);
+window.scrollBy(options)
+```
+
+注：`window.scrollBy`的参数与`window.scrollTo`一样，但是`window.scrollBy`中的`x-coord` 、`y-coord`、`top`、`left` 可以是**负值**。`window.scrollBy`是**以自身为参考点**，`window.scrollTo`**以浏览器窗口为参考点**。
+
+<br/>
+
