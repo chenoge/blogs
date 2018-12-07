@@ -1,7 +1,7 @@
 ---
-title: @supporst属性
+title: supporst属性
 date: 2018-12-07 10:53:22
-tags: [css,@supporst]
+tags: [css,supporst]
 ---
 
 `@supports`是`CSS3`新引入的规则之一，主要用于检测当前浏览器是否支持某个`CSS`属性并加载具体样式。
