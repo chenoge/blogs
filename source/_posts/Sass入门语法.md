@@ -7,18 +7,18 @@ tags: [sass]
 # 一、变量
 
 ```scss
-  $fontStack : Helvetica,sans-serif;
-  $primaryColor: #333;
-  body {
-      font-family: $fontStack;
-      color: $primaryColor;
-  }
+$fontStack : Helvetica,sans-serif;
+$primaryColor: #333;
+body {
+    font-family: $fontStack;
+    color: $primaryColor;
+}
 
-  /*编译结果*/
-  body {
-      font-family: Helvetica, sans-serif;
-      color: #333;
-  }
+/*编译结果*/
+body {
+    font-family: Helvetica, sans-serif;
+    color: #333;
+}
 ```
 
 <br/>
@@ -26,36 +26,40 @@ tags: [sass]
 # 二、嵌套
 
 ```scss
-	nav {
-	  ul {
-	    margin: 0;
-	    padding: 0;
-	    list-style: none;
-	  }
-	  li { 
-          display: inline-block; 
-        }
-	  a {
-	    display: block;
-	    padding: 6px 12px;
-	    text-decoration: none;
-	  }
-	}
-	
-	/*编译结果*/
-	nav ul {
-	  margin: 0;
-	  padding: 0;
-	  list-style: none;
-	}
-	nav li {
-	  display: inline-block;
-	}
-	nav a {
-	  display: block;
-	  padding: 6px 12px;
-	  text-decoration: none;
-	}
+nav {
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    li {
+        display: inline-block;
+    }
+
+    a {
+        display: block;
+        padding: 6px 12px;
+        text-decoration: none;
+    }
+}
+
+/*编译结果*/
+nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+nav li {
+    display: inline-block;
+}
+
+nav a {
+    display: block;
+    padding: 6px 12px;
+    text-decoration: none;
+}
 ```
 
 <br/>
@@ -65,23 +69,24 @@ tags: [sass]
 # 三、mixin
 
 ```scss
-	@mixin box-sizing ($sizing) {
-	    -webkit-box-sizing:$sizing;     
-	       -moz-box-sizing:$sizing;
-	            box-sizing:$sizing;
-	}
-	.box-border{
-	    border:1px solid #ccc;
-	    @include box-sizing(border-box);
-	}
+@mixin box-sizing ($sizing) {
+    -webkit-box-sizing: $sizing;
+    -moz-box-sizing: $sizing;
+    box-sizing: $sizing;
+}
 
-	/*编译结果*/
-	.box-border {
-	  border: 1px solid #ccc;
-	  -webkit-box-sizing: border-box;
-	  -moz-box-sizing: border-box;
-	  box-sizing: border-box;
-	}
+.box-border {
+    border: 1px solid #ccc;
+    @include box-sizing(border-box);
+}
+
+/*编译结果*/
+.box-border {
+    border: 1px solid #ccc;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
 ```
 
 在引用混合样式的时候，可以先将一段代码导入到混合指令中，然后再输出混合样式，额外导入的部分将出现在 @content 标志的地方： 
@@ -92,7 +97,7 @@ tags: [sass]
         @content;
     }
 }
-	
+
 @include apply-to-ie6-only {
     #logo {
         background-image: url(/logo.gif);
@@ -120,39 +125,45 @@ tags: [sass]
 # 四、扩展/继承
 
 ```scss
-	.message {
-	  border: 1px solid #ccc;
-	  padding: 10px;
-	  color: #333;
-	}
-	.success {
-	  @extend .message;
-	  border-color: green;
-	}
-	.error {
-	  @extend .message;
-	  border-color: red;
-	}
-	.warning {
-	  @extend .message;
-	  border-color: yellow;
-	}
+.message {
+    border: 1px solid #ccc;
+    padding: 10px;
+    color: #333;
+}
 
-  	/*编译结果*/
-	.message, .success, .error, .warning {
-	  border: 1px solid #cccccc;
-	  padding: 10px;
-	  color: #333;
-	}
-	.success {
-	  border-color: green;
-	}
-	.error {
-	  border-color: red;
-	}
-	.warning {
-	  border-color: yellow;
-	}
+.success {
+    @extend .message;
+    border-color: green;
+}
+
+.error {
+    @extend .message;
+    border-color: red;
+}
+
+.warning {
+    @extend .message;
+    border-color: yellow;
+}
+
+/*编译结果*/
+.message, .success, .error, .warning {
+    border: 1px solid #cccccc;
+    padding: 10px;
+    color: #333;
+}
+
+.success {
+    border-color: green;
+}
+
+.error {
+    border-color: red;
+}
+
+.warning {
+    border-color: yellow;
+}
 ```
 
 <br/>
@@ -160,29 +171,33 @@ tags: [sass]
 # 五、运算
 
 ```scss
-	.container { 
-        width: 100%; 
-	}
-	article[role="main"] {
-	  float: left;
-	  width: 600px / 960px * 100%;
-	}
-	aside[role="complimentary"] {
-	  float: right;
-	  width: 300px / 960px * 100%;
-	}
+.container {
+    width: 100%;
+}
 
-  	/*编译结果*/
-	.container {
-	  width: 100%;
-	}
-	article[role="main"] {
-	  float: left;
-	  width: 62.5%;
-	}
-	aside[role="complimentary"] {
-	  float: right;
-	  width: 31.25%;
-	}
+article[role="main"] {
+    float: left;
+    width: 600px / 960px * 100%;
+}
+
+aside[role="complimentary"] {
+    float: right;
+    width: 300px / 960px * 100%;
+}
+
+/*编译结果*/
+.container {
+    width: 100%;
+}
+
+article[role="main"] {
+    float: left;
+    width: 62.5%;
+}
+
+aside[role="complimentary"] {
+    float: right;
+    width: 31.25%;
+}
 ```
 

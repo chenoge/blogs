@@ -4,7 +4,7 @@ date: 2018-03-7 21:19:52
 tags: [css,变量]
 ---
 
-# 一、变量的声明
+### 一、变量的声明
 
 声明变量的时候，变量名前面要加**两根连词线**`--`，变量名大小写敏感
 
@@ -47,7 +47,7 @@ body {
 
 <!--more--> 
 
-# 二、var() 函数
+### 二、var() 函数
 
 var()函数用于读取变量。
 
@@ -94,7 +94,7 @@ var()函数还可以用在变量的声明。
 
 <br/>
 
-# 三、变量值的类型
+### 三、变量值的类型
 
 如果变量值是一个字符串，可以与其他字符串拼接。 
 
@@ -151,7 +151,7 @@ body:after {
 
 <br/>
 
-# 四、作用域
+### 四、作用域
 
 同一个 CSS 变量，可以在多个选择器内声明。读取的时候，优先级最高的声明生效。这与 CSS 的"层叠"（cascade）规则是一致的。下面是一个[例子](http://jsbin.com/buwahixoqo/edit?html,css,output)。 
 
@@ -201,7 +201,7 @@ body {
 
 <br/>
 
-# 五、响应式布局
+### 五、响应式布局
 
 CSS 是动态的，页面的任何变化，都会导致采用的规则变化。
 
@@ -226,3 +226,45 @@ a {
 }
 ```
 
+<br/>
+
+### 六、设置CSS变量
+
+##### 1、HTML标签中设置CSS变量
+
+```html
+<div style="--color: #cd0000;">
+    <img src="mm.jpg" style="border: 10px solid var(--color);">
+</div>
+```
+
+<br/>
+
+##### 2、JS中设置CSS变量
+
+```html
+<div id="box">
+    <img src="mm.jpg" style="border: 10px solid var(--color);">
+</div>
+```
+
+```javascript
+box.style.setProperty('--color', '#cd0000');
+```
+
+<br/>
+
+##### 3、JS中获取CSS变量
+
+```javascript
+// 获取 --color CSS 变量值
+var cssVarColor = getComputedStyle(box).getPropertyValue('--color'); 
+
+// 输出cssVarColor
+// 输出变量值是：#cd0000 
+console.log(cssVarColor);
+```
+
+<br/>
+
+注：由此可见，`CSS变量`与`自定义的 CSS 属性`其实是一回事
