@@ -156,7 +156,7 @@ hell\u{6F} // 123
 
 <br/>
 
-JavaScript 内部，字符以 `UTF-16` 的格式储存，每个字符固定为`2`个字节。 使用`for...of`循环，它会正确识别 32 位的 UTF-16 字符
+- JavaScript 内部，字符以 `UTF-16` 的格式储存，每个字符固定为`2`个字节。 使用`for...of`循环，它会正确识别 32 位的 UTF-16 字符
 
 ```javascript
 let s = '𠮷a';
@@ -165,6 +165,14 @@ for (let ch of s) {
 }
 // 20bb7
 // 61
+```
+
+
+
+- `Array.from()`可以将字符串转为数组，然后返回字符串的长度。它能正确处理各种 `Unicode` 字符，可以避免 `JavaScript` 将大于`\uFFFF`的 `Unicod`e 字符，算作两个字符的 bug。 
+
+```javascript
+Array.from(string).length
 ```
 
 <br/>
