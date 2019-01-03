@@ -163,6 +163,20 @@ meta标签中http-equiv属性语法格式是：
 - `X-UA-Compatible` 中的`IE=edge`指令，可以让IE或者调用IE内核的浏览器，使用**标准模式**渲染网页，注意这里和“Edge浏览器”无关，只是恰巧重名罢了。
 - `Google Chrome Frame`(谷歌内嵌浏览器框架GCF)：使用的是Google Chrome浏览器内核来渲染，而且支持IE6、7、8等多个版本的IE浏览器 
 
+| X-UA-Compatible值 | 说明                                                         |
+| ----------------- | ------------------------------------------------------------ |
+| IE=5              | 让浏览器使用Quirks mode来显示，实际上是使用Internet Explorer 7 的 Quirks 模式来显示内容，这个模式和IE5非常相似。 |
+| IE=edge           | 这个设置是让IE使用当前的最高版本进行文档的解析，官方文档指明，edge模式仅适用在测试环境，不建议在生产环境中使用 |
+| IE=7              | 使用标准IE7来处理                                            |
+| IE=EmulateIE7     | 模拟IE7来处理，遵循 <!DOCTYPE> 指令，如果文档有当前有一个合法的<!DOCTYPE>，就使用IE7模式，否者使用Quirks模式（Internet Explorer 5 Quirks），对于大部分网站来说，这是首选的兼容性模式 |
+| IE=8              | 标准IE8                                                      |
+| IE=EmulateIE8     | 模拟IE8，遵循 <!DOCTYPE> 指令，参照IE=EmulateIE7说明         |
+| IE=9              | 标准IE9                                                      |
+| IE=EmulateIE9     | 模拟IE9，遵循 <!DOCTYPE> 指令，参照IE=EmulateIE7说明         |
+| chrome=1          | 强制使用Chrome，需要IE下Chrome插件支持                       |
+| IE=EmulateIE10    | 模拟IE10                                                     |
+| IE=10             | 标准IE10，遵循 <!DOCTYPE> 指令，参照IE=EmulateIE7说明        |
+
 <br/>
 
 #### C. cache-control(指定请求和响应遵循的缓存机制)
