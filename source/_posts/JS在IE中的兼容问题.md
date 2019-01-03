@@ -53,13 +53,16 @@ let point = { x: 1.2,  delete: -3.4 }; // 缺少标识符、字符串或数字
 // IE11 浏览器的 navigator.userAgent
 "Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; .NET4.0C; .NET4.0E; .NET CLR 2.0.50727; .NET CLR 3.0.30729; .NET CLR 3.5.30729; Tablet PC 2.0; rv:11.0) like Gecko"
 ```
-注：项目中不曾使用`X-UA-Compatible`指定`IE内核版本` 
+注：因为项目中未使用`X-UA-Compatible`指定`IE内核版本` 
 
 ```html
- <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<!--使用后，线上环境恢复正常，与开发环境一致-->
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
 ```
 
 <br/>
+
+<!--more-->
 
 #### 检测页面IE版本
 
