@@ -18,11 +18,11 @@ tags: [wheel,mousewheel,WheelEvent]
 
   该值及所表示的单位如下：
 
-  | 常量              | 值     | 描述             |
-  | :---------------- | ------ | ---------------- |
-  | `DOM_DELTA_PIXEL` | `0x00` | 滚动量单位为像素 |
-  | `DOM_DELTA_LINE`  | `0x01` | 滚动量单位为行   |
-  | `DOM_DELTA_PAGE`  | `0x02` | 滚动量单位为页   |
+  | 常量            | 值   | 描述             |
+  | --------------- | ---- | ---------------- |
+  | DOM_DELTA_PIXEL | 0x00 | 滚动量单位为像素 |
+  | DOM_DELTA_LINE  | 0x01 | 滚动量单位为行   |
+  | DOM_DELTA_PAGE  | 0x02 | 滚动量单位为页   |
 
 <!--more-->
 
