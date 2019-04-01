@@ -17,6 +17,7 @@ tags: [git]
 - 创建分支：`git branch <name>` 
 - 切换分支：`git checkout <name> ` 
 - 创建+切换分支：`git checkout -b <name> ` 
+- 创建+切换+关联远程分支：`git checkout -b 本地分支名 origin/远程分支名`
 - 合并某分支到当前分支：`git merge <name> ` 
 - 删除分支：`git branch -d <name> ` 
 
