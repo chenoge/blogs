@@ -4,15 +4,21 @@ date: 2018-04-10 17:41:04
 tags: [nginx,rewrite]
 ---
 
-# 一、ngx_http_rewrite_module
+#### 一、ngx_http_rewrite_module
 
-`rewrite`模块即`ngx_http_rewrite_module`模块，主要功能是改写请求URI，是Nginx默认安装的模块。rewrite模块会根据`PCRE正则`匹配重写URI，或者直接返回资源（`200|404`），或者发起内部跳转再匹配location，或者直接做30x重定向返回客户端。 `ngx_http_rewrite_module`模块的指令有`break`, `if`, `return`, `rewrite`, `set `。
+`rewrite`模块即`ngx_http_rewrite_module`模块，主要功能是改写请求URI，是Nginx默认安装的模块。
 
-<br/>
+`rewrite`模块会根据`PCRE正则`匹配重写URI，或者直接返回资源（`200|404`），或者发起内部跳转再匹配`location`，或者直接做`30x`重定向返回客户端。
+
+ `ngx_http_rewrite_module`模块的指令有`break`, `if`, `return`, `rewrite`, `set `。
 
 <!--more--> 
 
-# 二、rewrite语法
+<br/>
+
+
+
+#### 二、rewrite语法
 
 ```nginx
     rewrite    <regex>    <replacement>     [flag]       
@@ -22,9 +28,11 @@ tags: [nginx,rewrite]
 
 - flag标记说明：
   - **last**  #本条规则匹配完成后，**继续向下匹配新的location URI规则**
-    - 跳转的总次数不能超过10次 
+    - 跳转的总次数不能超过10次  
   - **break**  #本条规则匹配完成即终止，**不再匹配后面的任何规则**。
-    - 请求内容存在，返回200；请求内容不存在，则返回404。 
+    - 停止处理当前的`ngx_http_rewrite_module`指令集
+    - 如果`break`在`location`内，则在该`location`内继续进一步处理该请求
+    - 请求内容存在，返回200；请求内容不存在，则返回404
   - **redirect**  #返回**302临时重定向**，浏览器地址会**显示跳转后的URL地址**
   - **permanent**  #返回**301永久重定向**，浏览器地址栏会**显示跳转后的URL地址**
 
@@ -38,9 +46,7 @@ rewrite ^/(.*) http://www.czlun.com/$1 permanent;
 ```nginx
 rewrite /test/.* /index.html break;
 
-location /test/ {
-    return 508;
-}  
+location /test/ { return 508;}  
 
 location /break/ {  
     rewrite ^/break/(.*) /test/$1 break;
@@ -51,22 +57,30 @@ location /last/ {
     rewrite ^/last/(.*) /test/$1 last;
     return 403;
 }
+
+# 请求1： http://test.com/break/index.php   返回：404 
+# 请求2： http://test.com/last/index.php    返回：508 
+# 请求3： http://test.com/test/index.php    返回：200 (返回index.html) 
+# 当请求break时，如匹配内容存在的话，可以直接请求成功，返回200；而如果请求内容不存在，则返回404
+# 当请求为last的时候，会对重写的新uri重新发起请求，只是重新查找location匹配，如请求2返回508
 ```
 
-```markdown
-请求1： http://test.com/break/index.php   返回：404 
-请求2： http://test.com/last/index.php    返回：508 
-请求3： http://test.com/test/index.php    返回：200 (返回index.html) 
+注：
 
-当请求break时，如匹配内容存在的话，可以直接请求成功，返回200；而如果请求内容不存在，则返回404
-当请求为last的时候，会对重写的新uri重新发起请求，只是重新查找location匹配，如请求2返回508
-```
+- `rewrite`只能对域名后边的**除去传递的参数外**的字符串起作用
+
+- 如果`replacement`以`http://`, `https://`, or `$scheme`开头，处理将会终止，请求结果会以重定向的形式返回给客户端
+
+- 如果`replacement`字符串里有新的`request`参数，那么之前的参数会附加到其后面，如果要避免这种情况，那就在`replacement`字符串后面加上`？`
+
+- 如果正则表达式（*regex*）里包含`}` or `;`字符，需要用**单引号或者双引号**把正则表达式引起来
+
 
 <br/>
 
 
 
-# 三、return语法
+#### 三、return语法
 
 ```nginx
 return code [text] | code URL | URL;
@@ -84,7 +98,9 @@ return的参数有四种形式：
 
 <br/>
 
-## 四、`PCRE正则`表达式
+
+
+#### 四、`PCRE正则`表达式
 
 |   字符    | 描述                                                         |
 | :-------: | :----------------------------------------------------------- |
@@ -115,7 +131,9 @@ server {
 
 <br/>
 
-# 五、逻辑判断
+
+
+#### 五、逻辑判断
 
 | 操作符  | 含义                                                         |
 | ------- | ------------------------------------------------------------ |
@@ -128,7 +146,9 @@ server {
 
 <br/>
 
-# 六、常用变量
+
+
+#### 六、常用变量
 
 | 变量                | 含义                                                         |
 | :------------------ | ------------------------------------------------------------ |
@@ -155,7 +175,7 @@ server {
 | $document_uri       | 与$uri相同。                                                 |
 
 ```nginx
-# 限制浏览器访问  
+# 限制浏览器访问
 if ($http_user_agent ~ Firefox) {   
     rewrite ^(.*)$ /firefox/$1 break;   
 }
