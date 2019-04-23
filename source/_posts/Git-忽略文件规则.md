@@ -20,4 +20,3 @@ tags: [git,忽略规则]
 build/    # 忽略所有build目录下的文件，但如果是名为build的文件则不忽略
 doc/*.txt # 忽略文件如doc/notes.txt，但是文件如doc/server/arch.txt不忽略
 ```
-

@@ -11,6 +11,8 @@ tags: [git]
 
 <br/>
 
+
+
 #### 2、分支操作
 
 - 查看分支：`git branch` 
@@ -23,6 +25,8 @@ tags: [git]
 
 <br/>
 
+
+
 #### 3、关联远程仓库
 
 - 查看关联的远程仓库的名称：`git remote` 
@@ -34,6 +38,8 @@ tags: [git]
 <!--more-->
 
 <br/>
+
+
 
 #### 4、推送更新
 
@@ -121,6 +127,8 @@ git push --all origin
 
 <br/>
 
+
+
 #### 5、回退(reset )与反做(revert )
 
 ##### 回退
@@ -144,3 +152,13 @@ git push --all origin
 
 <br/>
 
+
+
+#### 6、忽略已提交文件
+
+```cmd
+# git rm -r --cached 要忽略的文件
+git rm -r --cached . # 删除追踪状态
+git add . 
+git commit -m "fixed untracked files"
+```
