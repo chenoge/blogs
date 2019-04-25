@@ -38,6 +38,8 @@ su - nginx # 变更帐号为 nginx 并改变工作目录至 nginx 的家目录�
 
 <br/>
 
+
+
 #### `su `和` su - ` 区别
 
 `su username` 
@@ -51,6 +53,8 @@ su - nginx # 变更帐号为 nginx 并改变工作目录至 nginx 的家目录�
 - **环境变量**即刻切换到指定目录的环境变量
 
 <br/>
+
+
 
 #### `sudo`命令
 
