@@ -50,6 +50,7 @@ git push <远程主机名> <本地分支名>:<远程分支名>
 ```
 
 
+
 ##### 更新远程分支
 
 ```
@@ -59,6 +60,7 @@ git push origin master : refs/for/master
 ```
 
 
+
 ##### 新建远程分支
 
 ```
@@ -66,6 +68,7 @@ git push origin master
 # 如果远程分支被省略，表示将本地分支推送到与之存在追踪关系的远程分支
 # 如果该远程分支不存在，则会被新建
 ```
+
 
 
 ##### 删除远程分支
@@ -162,3 +165,36 @@ git rm -r --cached . # 删除追踪状态
 git add . 
 git commit -m "fixed untracked files"
 ```
+
+<br/>
+
+
+
+#### 7、合并多个commit
+
+```bash
+git rebase -i  [startpoint]  [endpoint]
+```
+
+- `-i(--interactive)`，即弹出交互式的界面让用户编辑完成合并操作
+
+- `[startpoint]` 、`[endpoint]`则指定了一个**前开后闭编辑区间**
+
+- 如果不指定`[endpoint]`，则该区间的终点默认是当前分支`HEAD`所指向的`commit`
+
+```bash
+git rebase -i HEAD~3
+// git rebase -i 36224db
+```
+
+```
+pick：保留该commit
+reword：保留该commit，但我需要修改该commit的注释
+edit：保留该commit, 但我要停下来修改该提交
+squash：将该commit和前一个commit合并
+fixup：将该commit和前一个commit合并，但我不要保留该提交的注释信息
+exec：执行shell命令
+drop：我要丢弃该commit
+```
+
+<br/>
