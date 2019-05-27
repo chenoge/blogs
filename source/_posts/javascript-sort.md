@@ -42,10 +42,10 @@ arr.sort([compareFunction])
 
 ```javascript
 ['d', 'a', 'b', '2', '1', '3'].sort((x, y) => {
-	let orderList = ['b', 'a'];
+    let orderList = ['b', 'a'];
     let xIndex = orderList.indexOf(x);
     let yIndex = orderList.indexOf(y);
-	let res = xIndex - yIndex;
+    let res = xIndex - yIndex;
     
     if (xIndex === -1) {
         res = 1;
