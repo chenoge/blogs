@@ -46,7 +46,7 @@ git tag -l 1.*.*
 git tag -d <tagname>
 
 # 删除一个远程标签
-git push origin :refs/tags/<tagname>
+git push origin :<tagname>
 
 # Git v1.7.0 
 # 删除一个远程标签

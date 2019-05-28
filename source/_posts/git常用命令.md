@@ -54,7 +54,7 @@ git push <远程主机名> <本地分支名>:<远程分支名>
 ##### 更新远程分支
 
 ```
-git push origin master : refs/for/master
+git push origin master :master
 # 即是将本地的master分支推送到远程主机origin上的对应master分支
 #origin 是远程主机名，第一个master是本地分支名，第二个master是远程分支名
 ```
@@ -74,7 +74,7 @@ git push origin master
 ##### 删除远程分支
 
 ```
-git push origin ：refs/for/master
+git push origin :master
 # 如果省略本地分支名，则表示删除指定的远程分支，因为这等同于推送一个空的本地分支到远程分支
 # 等同于 git push origin --delete master
 ```
@@ -189,11 +189,17 @@ git rebase -i HEAD~3
 
 ```
 pick：保留该commit
+
 reword：保留该commit，但我需要修改该commit的注释
+
 edit：保留该commit, 但我要停下来修改该提交
+
 squash：将该commit和前一个commit合并
+
 fixup：将该commit和前一个commit合并，但我不要保留该提交的注释信息
+
 exec：执行shell命令
+
 drop：我要丢弃该commit
 ```
 
