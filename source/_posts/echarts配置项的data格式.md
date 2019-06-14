@@ -22,7 +22,8 @@ legend: {
 
 ```javascript
 legend: {
-    data: [{
+    data: [
+        {
             name: '系列1',
             // 强制设置图形为圆。
             icon: 'circle',
