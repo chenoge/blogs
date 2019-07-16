@@ -11,21 +11,19 @@ tags: [git]
 
 <br/>
 
-
-
 #### 2、分支操作
 
 - 查看分支：`git branch` 
 - 创建分支：`git branch <name>` 
+- 克隆特定分支：`git clone -b 分支名 仓库地址`
 - 切换分支：`git checkout <name> ` 
 - 创建+切换分支：`git checkout -b <name> ` 
 - 创建+切换+关联远程分支：`git checkout -b 本地分支名 origin/远程分支名`
+- 根据特定提交，创建切换分支：`git checkout -b <name> commitId`
 - 合并某分支到当前分支：`git merge <name> ` 
 - 删除分支：`git branch -d <name> ` 
 
 <br/>
-
-
 
 #### 3、关联远程仓库
 
@@ -39,8 +37,6 @@ tags: [git]
 
 <br/>
 
-
-
 #### 4、推送更新
 
 `git push`命令用于将本地分支的更新，推送到远程主机。它的格式与`git pull`命令相似。
@@ -48,8 +44,6 @@ tags: [git]
 ```
 git push <远程主机名> <本地分支名>:<远程分支名>
 ```
-
-
 
 ##### 更新远程分支
 
@@ -59,8 +53,6 @@ git push origin master :master
 #origin 是远程主机名，第一个master是本地分支名，第二个master是远程分支名
 ```
 
-
-
 ##### 新建远程分支
 
 ```
@@ -68,8 +60,6 @@ git push origin master
 # 如果远程分支被省略，表示将本地分支推送到与之存在追踪关系的远程分支
 # 如果该远程分支不存在，则会被新建
 ```
-
-
 
 ##### 删除远程分支
 
@@ -79,8 +69,6 @@ git push origin :master
 # 等同于 git push origin --delete master
 ```
 
-
-
 ##### 默认当前分支
 
 ```
@@ -88,8 +76,6 @@ git push origin
 # 如果当前分支与远程分支存在追踪关系，则本地分支和远程分支都可以省略
 # 将当前分支推送到origin主机的对应分支 
 ```
-
-
 
 ##### 默认主机名
 
@@ -99,8 +85,6 @@ git push
 # 以使用git branch -r ，查看远程的分支名
 ```
 
-
-
 ##### 默认主机
 
 ```
@@ -109,8 +93,6 @@ git push -u origin master
 # 这样后面就可以不加任何参数使用git push
 ```
 
-
-
 ##### 强行推送
 
 ```
@@ -118,8 +100,6 @@ git push --force origin
 # 如果远程主机的版本比本地版本新，推送时Git会报错
 # 如果你一定要推送，可以使用-f | --force选项
 ```
-
-
 
 ##### 推送所有分支
 
@@ -130,8 +110,6 @@ git push --all origin
 
 <br/>
 
-
-
 #### 5、回退(reset )与反做(revert )
 
 ##### 回退
@@ -140,8 +118,6 @@ git push --all origin
 - 强制推送到远程分支：`git push -f` 
 
 **适用场景：** 如果想恢复到之前某个提交的版本，且那个版本之后提交的版本都不要了
-
- 
 
 ##### 反做
 
@@ -155,8 +131,6 @@ git push --all origin
 
 <br/>
 
-
-
 #### 6、忽略已提交文件
 
 ```cmd
@@ -167,8 +141,6 @@ git commit -m "fixed untracked files"
 ```
 
 <br/>
-
-
 
 #### 7、合并多个commit
 
@@ -202,5 +174,21 @@ exec：执行shell命令
 
 drop：我要丢弃该commit
 ```
+
+<br/>
+
+#### 8、合并特定commit
+
+```
+git cherry-pick <commit-id>
+
+#(左开，右闭] 区间
+git cherry_pick <start-commit-id>…<end-commit-id>
+
+#左闭，右闭] 的区间
+git cherry-pick <start-commit-id>^...<end-commit-id>
+```
+
+注：无论是对单个 commit 进行 cherry-pick ，还是批量处理，注意一定要根据时间线，依照 commit 的先后顺序来处理。
 
 <br/>
