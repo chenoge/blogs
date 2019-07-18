@@ -4,7 +4,7 @@ date: 2019-07-18 15:09:51
 tags: [geoJson,echarts]
 ---
 
-####GeoJSON
+#### GeoJSON
 
 GeoJSON是一种对各种**地理数据结构**进行编码的格式，GeoJSON对象可以表示**几何、特征或者特征集合**。
 
@@ -26,7 +26,7 @@ GeoJSON里的**特征包含一个几何对象和其他属性**，特征集合表
 
   ```
   Point, MultiPoint, LineString, MultiLineString, Polygon, MultiPolygon,
-  GeometryCollection, Feature,  FeatureCollection
+  GeometryCollection, Feature, FeatureCollection
   ```
 
 - GeoJSON对象可能有一个可选的`crs`成员，它的值必须是一个坐标参考系统的对象
