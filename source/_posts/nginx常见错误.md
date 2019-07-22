@@ -4,20 +4,42 @@ date: 2019-07-19 22:53:01
 tags: [nginx]
 ---
 
-##### 1、配置通过图片代理
+##### 1、配置通用代理
 
 ```nginx
-# http://chenoge.github.io/api/img/proxy?url=https://img1.tuicool.com/63MBryU.jpg!web
+# url=https://img1.tuicool.com/63MBryU.jpg!web
+# 代理url，不包含参数
 http {
     resolver 8.8.8.8;
     server {
-        server_name  chenoge.github.io;
         location ~ /api/img/proxy {
             if ($arg_url ~* ^(.*://)?(.+\.\w+)(/.+)) {
                 set $domain $2;
             }
             proxy_set_header Host $domain;
             proxy_pass $arg_url;
+        }
+    }
+}
+```
+
+```nginx
+# url=https://webquoteklinepic.eastmoney.com/GetPic.aspx?nid=116.01117&imageType=k
+# 代理url，包含参数
+http {
+    resolver 8.8.8.8;
+    server {
+        location ~ /api/img/proxy {
+            if ($query_string ~* ^url=(.*)$) {
+                set $proxy_url $1;
+            }
+            if ($proxy_url ~* ^(.*://)?(.+\.\w+)(/.+)) {
+                set $proxy_domain $2;
+            }
+            add_header cache-control max-age=600;
+            proxy_set_header Referer $proxy_url;
+            proxy_set_header Host $proxy_domain;
+            proxy_pass $proxy_url;
         }
     }
 }
