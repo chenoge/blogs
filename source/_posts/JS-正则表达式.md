@@ -52,3 +52,23 @@ tags: [javaScript,正则表达式,RegExp]
   RE_TWICE.test('abc!abc!ab') // false
   ```
 
+<br/>
+
+
+
+#### 贪婪匹配
+
+贪婪匹配指的是：匹配的子串是最长的，如果符合条件，就一直匹配，返回最长的匹配子串。
+
+非贪婪匹配：如果匹配成功，就返回子串，而不继续向下匹配了，用法就是在**量词**后面加上一个`?`。
+
+```javascript
+var str = "aaabbb";
+var reg = /a+/g;
+console.log(str.match(reg));    // ["aaa"]
+
+// 改为非贪婪匹配，用?，能匹配一次绝对不匹配多次
+var reg = /a+?/g;
+console.log(str.match(reg));    // ["a","a","a"]
+```
+
