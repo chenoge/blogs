@@ -4,7 +4,7 @@ date: 2017-11-16 16:13:19
 tags: [nginx,proxy_pass]
 ---
 
-# 一、路径问题
+#### 一、路径问题
 
 - **当proxy_pass后有url时，则nginx不会把location中匹配的路径部分代理走**
 - **当proxy_pass后没有url时，则会把匹配的路径部分也给代理走**
@@ -31,13 +31,15 @@ location ^~ /static_js/
 
 则会被代理到 **/static_js/test.htm** 。
 
-<br/>
-
 <!--more--> 
 
-# 二、proxy_set_header
+<br/>
 
-#### 1、原理介绍
+
+
+#### 二、proxy_set_header
+
+##### 1、原理介绍
 
 ```nginx
 proxy_set_header field value;
@@ -67,7 +69,7 @@ proxy_set_header test paroxy_test;
 underscores_in_headers on|off
 ```
 
-#### 2、获取用户ip
+##### 2、获取用户ip
 
 在实际应用中，我们可能需要获取**用户的ip地址。**通常情况下我们使用request.getRemoteAddr()就可以获取到客户端ip，但是当我们使用了nginx作为反向代理后，使用request.getRemoteAddr()获取到的就一直是nginx服务器的ip的地址。
 
@@ -117,7 +119,7 @@ underscores_in_headers on|off
 
   
 
-#### 3、实战应用
+##### 3、实战应用
 
 从微信小程序跳到H5页面，需要在后台配置相关的**业务域名**。当我们需要跳到其他网站的页面时，可以使用Nginx来做反代理配置。如：在微信后台配置 **es.yf-gz.cn**，反代理到 **shop.mallparking.cn**
 
@@ -144,3 +146,29 @@ server {
 }
 ```
 
+<br/>
+
+
+
+#### 三、端口丢失问题
+
+```nginx
+server {
+    listen       90; 
+    proxy_set_header X-Forwarded-Host $host;
+    proxy_set_header X-Forwarded-Server $host;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    
+    # 这里是重点,这样配置才不会丢失端口
+    proxy_set_header Host $host:$server_port; 
+    
+    # 或者
+    #proxy_set_header Host $http_host;
+    
+    location / {
+        proxy_pass http://127.0.0.1:9001;
+    }
+}
+```
+
+注：nginx没有正确的把端口信息传送到后端，没能正确的配置nginx

@@ -30,9 +30,25 @@ proxy_set_header Host       $host;
 - ` HTTP1.1`代理必须确保它转发的任何请求消息，都包含一个适当的主机头字段，用于标识代理请求的服务
 - 所有基于`HTTP1.1`服务器必须以`400`状态代码响应任何缺少主机头字段的`HTTP1.1`请求消息
 
+<br/>
+
+
+
+##### `$http_host`
+
+```
+$http_host不是一个固定的变量，他其实是$http_HEADER通配后的结果
+HEADER是一个通配符，通配的是请求头里的header属性
+
+例如$http_content_type表示请求头里content-type属性的值
+同理，$http_host指的就是请求头里的host属性
+```
+
 <!--more-->
 
 <br/>
+
+
 
 #### 二、Host重复配置
 
@@ -52,6 +68,8 @@ proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
 
 <br/>
 
+
+
 `HTTP RFC2616`
 
 可以存在**具有相同字段名的多个消息头字段**在消息中，当且仅当该标头的整个字段值字段被定义为以逗号分隔的列表。通过将**每个后续字段值附加到第一个**，每个用逗号分隔。因此**代理不得改变转发时这些字段值的顺序** 。
@@ -67,3 +85,20 @@ Cache-Control: no-cache, no-store
 
 <br/>
 
+
+
+#### 三、$host变量
+
+$host变量的值按照如下优先级获得：
+
+1. **请求行**中的`host`
+
+   ```
+   GET www.test.info/index.php HTTP/1.1
+   ```
+
+2. **请求头**中的`Host`头部，**除了端口号的部分**
+
+3. 与一条请求匹配的server name
+
+<br/>
