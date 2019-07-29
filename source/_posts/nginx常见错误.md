@@ -10,10 +10,10 @@ tags: [nginx]
 # url=https://img1.tuicool.com/63MBryU.jpg!web
 # 代理url，不包含参数
 http {
-    resolver 8.8.8.8;
+    resolver 223.5.5.5 119.29.29.29 8.8.8.8;
     server {
         location ~ /api/img/proxy {
-            if ($arg_url ~* ^(.*://)?(.+\.\w+)(/.+)) {
+            if ($arg_url ~* ^(.*://)?([^/]+)(/.+)) {
                 set $domain $2;
             }
             proxy_set_header Host $domain;
@@ -27,16 +27,16 @@ http {
 # url=https://webquoteklinepic.eastmoney.com/GetPic.aspx?nid=116.01117&imageType=k
 # 代理url，包含参数
 http {
-    resolver 8.8.8.8;
+    resolver 223.5.5.5 119.29.29.29 8.8.8.8;
     server {
         location ~ /api/img/proxy {
             if ($query_string ~* ^url=(.*)$) {
                 set $proxy_url $1;
             }
-            if ($proxy_url ~* ^(.*://)?(.+\.\w+)(/.+)) {
+            if ($proxy_url ~* ^(.*://)?([^/]+)(/.+)) {
                 set $proxy_domain $2;
             }
-            add_header cache-control max-age=600;
+            add_header cache-control public;
             proxy_set_header Referer $proxy_url;
             proxy_set_header Host $proxy_domain;
             proxy_pass $proxy_url;
