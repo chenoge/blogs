@@ -6,30 +6,24 @@ tags: [nginx,proxy_pass]
 
 #### 一、路径问题
 
-- **当proxy_pass后有url时，则nginx不会把location中匹配的路径部分代理走**
-- **当proxy_pass后没有url时，则会把匹配的路径部分也给代理走**
+- **当`proxy_pass`后有`url`时，则nginx不会把`location`中匹配的路径部分代理走**
+- **当`proxy_pass`后没有`url`时，则会把匹配的路径部分也给代理走**
 
 ```nginx
-location ^~ /static_js/ 
-{ 
-    proxy_cache js_cache; 
-    proxy_set_header Host js.test.com; 
+location ^~ /static_js/ { 
     proxy_pass http://js.test.com/; 
 }
 ```
 
-如上面的配置，如果请求的url是 **/static_js/test.html** ，会被代理成 **test.html**。
+如上面的配置，如果请求的url是 **`/static_js/test.html`** ，会被代理成 **`test.html`**。
 
 ```nginx
-location ^~ /static_js/ 
-{ 
-    proxy_cache js_cache; 
-    proxy_set_header Host js.test.com; 
-    proxy_pass http://js.test.com; 
+location ^~ /static_js/ { 
+    proxy_pass http://js.test.com;
 }
 ```
 
-则会被代理到 **/static_js/test.htm** 。
+则会被代理到 **`/static_js/test.htm`** 。
 
 <!--more--> 
 
@@ -37,7 +31,19 @@ location ^~ /static_js/
 
 
 
-#### 二、proxy_set_header
+####  二、proxy_hide_header
+
+```nginx
+proxy_hide_header field;
+```
+
+默认情况下，`nginx`不会从代理服务器对客户端的响应中传递标题字段`Date，Server，X-Pad 和 X-Accel-...`。该`proxy_hide_header`指令设置了不会传递的其他字段。
+
+<br/>
+
+
+
+#### 三、proxy_set_header
 
 ##### 1、原理介绍
 
@@ -50,32 +56,40 @@ proxy_set_header field value;
 | 默认值: | proxy_set_header  **Connection**  close; <br />proxy_set_header  **Host**  $proxy_host; |
 | 上下文: | http, server, location                                 |
 
-**允许重新定义或者添加发往后端服务器的<font color=#A52A2A size=4 >请求头**</font>。`value`可以包含文本、变量或者它们的组合。 当且仅当当前配置级别中没有定义`proxy_set_header`指令时，会从上面的级别继承配置。 默认情况下，只有两个请求头会被重新定义： 
+**允许重新定义或者添加发往后端服务器的<font color=#A52A2A size=4 >请求头**</font>。`value`可以包含文本、变量或者它们的组合。 当且仅当当前配置级别中没有定义`proxy_set_header`指令时，会从上面的级别继承配置。 
 
-```nginx 
-proxy_set_header Host $proxy_host;
-proxy_set_header Connection close;
-```
+- 默认情况下，只有两个请求头会被重新定义： 
 
-proxy_set_header也可以**自定义参数**，如：
+  ```nginx
+  proxy_set_header Host $proxy_host;
+  proxy_set_header Connection close;
+  ```
 
-```nginx
-proxy_set_header test paroxy_test; 
-```
+- `proxy_set_header`也可以**自定义参数**，如：
 
-如果想要支持下划线的话，需要在http或者server中 增加如下配置： 
+  ```nginx
+  proxy_set_header test paroxy_test; 
+  ```
 
-```nginx 
-underscores_in_headers on|off
-```
+- 如果想要支持下划线的话，需要在http或者server中 增加如下配置： 
+
+  ```nginx
+  underscores_in_headers on|off
+  ```
+
+- 如果标头字段的值是空字符串，则此字段将不会传递给代理服务器
+
+  ```nginx
+  proxy_set_header Accept-Encoding "";
+  ```
 
 ##### 2、获取用户ip
 
-在实际应用中，我们可能需要获取**用户的ip地址。**通常情况下我们使用request.getRemoteAddr()就可以获取到客户端ip，但是当我们使用了nginx作为反向代理后，使用request.getRemoteAddr()获取到的就一直是nginx服务器的ip的地址。
+在实际应用中，我们可能需要获取**用户的ip地址。**通常情况下我们使用`request.getRemoteAddr()`就可以获取到客户端ip，但是当我们使用了nginx作为反向代理后，使用`request.getRemoteAddr()`获取到的就一直是nginx服务器的ip的地址。
 
-- 方案1：X-real-ip
+- 方案1：`X-real-ip`
 
-  - nginx是可以获得用户的真实ip的，也就是说nginx使用$remote_addr变量时获得的是用户的真实ip，如果我们想要在**服务器端**获得用户的真实ip，就必须在nginx这里作一个赋值操作，如下： 
+  - nginx是可以获得用户的真实ip的，也就是说nginx使用`$remote_addr`变量时获得的是用户的真实ip，如果我们想要在**服务器端**获得用户的真实ip，就必须在nginx这里作一个赋值操作，如下： 
 
   ```nginx
   # X-real-ip是一个自定义的变量名
@@ -87,7 +101,7 @@ underscores_in_headers on|off
 
 <br/>
 
-- 方案2：X-Forwarded-For 
+- 方案2：`X-Forwarded-For `
 
   - 一般来说，`X-Forwarded-For`是用于记录代理信息的，**每经过一级代理(匿名代理除外)，代理服务器都会把这次请求的`来源IP`追加在`X-Forwarded-For`中** 。
 
@@ -121,7 +135,7 @@ underscores_in_headers on|off
 
 ##### 3、实战应用
 
-从微信小程序跳到H5页面，需要在后台配置相关的**业务域名**。当我们需要跳到其他网站的页面时，可以使用Nginx来做反代理配置。如：在微信后台配置 **es.yf-gz.cn**，反代理到 **shop.mallparking.cn**
+从微信小程序跳到H5页面，需要在后台配置相关的**业务域名**。当我们需要跳到其他网站的页面时，可以使用`Nginx`来做反代理配置。如：在微信后台配置 **`es.yf-gz.cn`**，反代理到 **`shop.mallparking.cn`**
 
 ```nginx
 server {
@@ -171,4 +185,4 @@ server {
 }
 ```
 
-注：nginx没有正确的把端口信息传送到后端，没能正确的配置nginx
+注：`nginx`没有正确的把端口信息传送到后端，没能正确的配置`nginx`。
