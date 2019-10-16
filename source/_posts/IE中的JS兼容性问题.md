@@ -1,7 +1,7 @@
 ---
-title: JS在IE中的兼容问题
+title: IE中的JS兼容性问题
 date: 2019-01-02 23:23:26
-tags: [js,IE,兼容]
+tags: [js,IE,兼容性]
 ---
 
 #### 标识符与保留字
