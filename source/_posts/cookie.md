@@ -64,10 +64,10 @@ document.cookie = newCookie;
 
 浏览器在**加载静态资源**或者**发出ajax请求**时，会根据`url`中的**域名与路径**，对每个cookie的`domain属性`和`path属性`进行验证，存在多个同名cookie时，按一定排序都带上。
 
-请求`http://example.com/news`时， 带上的cookie要满足：
+请求`http://news.example.com/news/hot`时， 带上的cookie要满足：
 
-- `domain属性`是`(.*).example.com`
-- `path属性`是`/news/(.*)`
+- `domain属性`是`news.example.com`，及其**上级域名**
+- `path属性`是`/news/hot`，及其**上级路径**
 
 <br/>
 
