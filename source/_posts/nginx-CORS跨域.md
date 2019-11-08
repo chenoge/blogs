@@ -109,7 +109,24 @@ xhr.withCredentials = true;
 
 <br/>
 
-# 四、nginx配置例子
+# 四、什么情况下存在跨域问题
+
+```
+1、由 XMLHttpRequest 或 Fetch 发起的跨域 HTTP 请求
+
+2、Web 字体 ，CSS 中通过 @font-face 使用跨域字体资源
+
+3、WebGL 贴图
+
+4、使用 drawImage 将 Images/video 画面绘制到 canvas
+
+5、样式表，使用 CSSOM
+
+```
+
+<br/>
+
+# 五、nginx配置例子
 
 ```nginx 
 location / {
