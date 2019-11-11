@@ -1,36 +1,20 @@
 ---
-title: document.body.scrollTop与document.documentElement.scrollTop
+title: scrollTop
 date: 2018-10-13 13:34:10
-tags: [document.body.scrollTop,document.documentElement.scrollTop]
+tags: [scrollTop]
 ---
 
-#### 古代浏览器间的 scrollTop差异
+####  scrollTop
 
-- **IE6/7/8：**使用 `document.documentElement.scrollTop`； 
-- **IE9及以上：**使用`window.pageYOffset`或者`document.documentElement.scrollTop `
-- **Safari:**  `window.pageYOffset` 与document.body.scrollTop都可以； 
-- **Firefox:** window.pageYOffset 或者 `document.documentElement.scrollTop `；
-- **Chrome：**只认识`document.body.scrollTop`;
+元素的scrollTop值是从元素**顶部**到其**最顶部可见内容**的距离的度量（`An element's scrollTop value is a measurement of the distance from the element's top to its topmost visible content`）。
 
-注：document.body.scrollTop与document.documentElement.scrollTop同时只会有一个值生效。
-
-```javascript
-let sTop = document.body.scrollTop || document.documentElement.scrollTop;
-```
-
-
-
-- ##### 2018-10-30更新：**浏览器 =》古代浏览器**
-
-  **chrome:**
-
-  -  html元素作为body元素的父类，遵行普通父元素与子元素之间的关系
-  -  `document.body`作为body元素`dom对象`的引用
-  -  `document.documentElement`作为html元素`dom对象`的引用
-
-
+注：`overflow`属性值为`hidden`的元素，改变元素的`scrollTop`值，可以触发滚动效果
 
 <br/>
+
+<!--more-->
+
+
 
 #### document.compatMode
 
@@ -45,6 +29,8 @@ mode = document.compatMode
 
 <br/>
 
+
+
 #### Document.scrollingElement
 
 **scrollingElement** （ [`Document`](https://developer.mozilla.org/zh-CN/docs/Web/API/Document) 的只读属性）返回滚动文档的 [`Element`](https://developer.mozilla.org/zh-CN/docs/Web/API/Element) 对象的引用。 
@@ -53,7 +39,15 @@ mode = document.compatMode
 
 当在怪异模式（`Quirks Mode `）下， `scrollingElement` 属性返回 HTML `body` 元素（若不存在返回 null ）。
 
+注：`document.body.scrollTop`与`document.documentElement.scrollTop`同时只会有一个值生效。
+
+```javascript
+let sTop = document.body.scrollTop || document.documentElement.scrollTop;
+```
+
 <br/>
+
+
 
 #### Window.scrollTo
 
@@ -81,6 +75,8 @@ window.scrollTo({
 **注：window.scrollTo滚动的容器为`document.documentElement`**
 
 <br/>
+
+
 
 #### window.scrollBy
 
