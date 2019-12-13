@@ -12,6 +12,8 @@ BEM代表 **“块（block），元素（element），修饰符（modifier）”
 
 ![](BEM书写规范/2.png)
 
+![](BEM书写规范/2_1.png)
+
 在选择器中，由以下三种符号来表示扩展的关系：
 
 ```
@@ -55,3 +57,13 @@ _   单下划线：单下划线用来描述一个块或者块的子元素的一�
 ####其他命名规范（CSS设计模式）
 
 ![](BEM书写规范/3.png)
+
+
+
+##### OOCSS
+
+OOCSS（Object Oriented CSS），是由Nicole Sullivan提出的css理论，其主要的两个原则是：
+
+1. 分离结构和主题（**Separate structure and skin**），分离结构和主题是在于将一些视觉样式效果作为单独的“主题”来应用
+2. 分离容器和内容（**Separate container and content**），分离容器和内容要求使页面元素不依赖于其所处位置
+
