@@ -1,0 +1,183 @@
+---
+title: linux-Shell
+date: 2020-01-07 20:45:30
+tags: [Shell]
+---
+
+#### 一、Shell 变量
+
+##### 定义变量
+
+```shell
+name="czh"
+```
+
+-  **定义变量**时，变量名不加美元符号 
+- **二次赋值**时，变量名不加美元符号 
+-  变量名和等号之间不能有空格 
+
+##### 使用变量
+
+```shell
+name="czh" 
+echo $name
+echo "My name is ${name}"
+
+readonly name # 使用 readonly 命令可以将变量定义为只读变量
+unset name # 使用 unset 命令可以删除变量
+```
+
+- 使用一个定义过的变量，只要在变量名前面加美元符号即可 
+-  变量名外面的花括号是可选的 
+
+<!--more-->
+
+
+
+##### Shell 字符串
+
+```shell
+string="abcd"
+echo ${#string} # 获取字符串长度，输出 4
+echo ${string:1:3} # 提取子字符串，输出 bcd
+```
+
+
+
+##### Shell 数组
+
+```shell
+array_name=(A B "C" D)
+name0=${array_name[0]} # 读取数组元素值
+length=${#array_name[*]} # 获取数组长度
+```
+
+- bash只支持一维数组，并且没有限定数组的大小
+
+- 在 Shell 中，用括号来表示数组，数组元素用"**空格**"符号分割开 
+
+
+
+#### 二、Shell 基本运算符
+
+```shell
+#!/bin/bash
+
+val=`expr 2 + 2`
+echo "两数之和为 : $val"
+```
+
+-  原生bash不支持简单的数学运算，但是可以通过其他命令来实现，例如 `awk` 和 `expr`
+-  表达式和运算符之间要有空格 
+- 乘号(*)前边必须加反斜杠(`\`)才能实现乘法运算； 
+
+```shell
+#!/bin/bash
+
+a=10
+b=20
+
+if [ $a == $b ]
+then
+   echo "a 等于 b"
+fi
+
+if [ $a != $b ]
+then
+   echo "a 不等于 b"
+fi
+```
+
+
+
+##### 关系运算符
+
+ 假定变量 a 为 10，变量 b 为 20
+
+| `-eq` | 检测两个数是否相等，相等返回 true                   | `[ $a -eq $b ]` 返回 false |
+| ----- | --------------------------------------------------- | -------------------------- |
+| `-ne` | 检测两个数是否不相等，不相等返回 true               | `[ $a -ne $b ]` 返回 true  |
+| `-gt` | 检测左边的数是否大于右边的，如果是，则返回 true     | `[ $a -gt $b ]` 返回 false |
+| `-lt` | 检测左边的数是否小于右边的，如果是，则返回 true     | `[ $a -lt $b ] `返回 true  |
+| `-ge` | 检测左边的数是否大于等于右边的，如果是，则返回 true | `[ $a -ge $b ]` 返回 false |
+| `-le` | 检测左边的数是否小于等于右边的，如果是，则返回 true | `[ $a -le $b ]` 返回 true  |
+
+
+
+##### 布尔运算符
+
+ 假定变量 a 为 10，变量 b 为 20 
+
+| `!`  | 非运算，表达式为 true 则返回 false，否则返回 true | `[ ! false ]` 返回 true                  |
+| ---- | ------------------------------------------------- | ---------------------------------------- |
+| `-o` | 或运算，有一个表达式为 true 则返回 true           | `[ $a -lt 20 -o $b -gt 100 ] `返回 true  |
+| `-a` | 与运算，两个表达式都为 true 才返回 true           | `[ $a -lt 20 -a $b -gt 100 ] `返回 false |
+
+
+
+##### 逻辑运算符
+
+ 假定变量 a 为 10，变量 b 为 20 
+
+| &&   | 逻辑的 AND | `[[ $a -lt 100 && $b -gt 100 ]]` 返回 false |
+| ---- | ---------- | ------------------------------------------- |
+| \|\| | 逻辑的 OR  | `[[ $a -lt 100 || $b -gt 100 ]] `返回 true  |
+
+
+
+#####  判断上一个命令是否执行成功 
+
+ shell中使用符号`$?`来显示上一条命令执行的返回值，如果为0则代表执行成功，其他表示失败。 
+
+```shell
+if [ $? -eq 0 ]; then
+    echo "succeed"
+else
+    echo "failed"
+fi
+```
+
+
+
+##### 舆情项目自动部署脚本
+
+```shell
+#!/bin/sh
+
+git reset --hard
+
+git pull
+
+if [ $? -eq 0 ]; then # 上一个命令执行成功
+
+    echo "login git account successful!"
+
+    ENV=$1
+
+    if [ $# -eq 0 ]; then # 设置默认参数
+
+        ENV="prod"
+    fi
+
+    echo "ENV=${ENV}"
+
+    mvn clean package -P $ENV
+
+    echo "building"
+
+    cd target
+
+    sh stop.sh
+
+    sh start.sh
+
+    tail -f EpsmWebApplication.log
+
+else
+
+    echo "login git account fail!"
+    exit 1
+
+fi
+```
+
