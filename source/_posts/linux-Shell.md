@@ -139,6 +139,70 @@ fi
 
 
 
+```shell
+# 在 bash shell 中，$( ) 与` ` (反引号) 都是用来做命令替换用(commandsubstitution)的
+
+# ${ }用于变量替换。一般情况下，$var 与${var} 并没有啥不一样
+
+# $[] $(()) 都是进行数学运算的
+```
+
+
+
+#### 三、Shell输入
+
+##### 基本读取
+
+```shell
+read -p "Enter your name:" name
+```
+
+- ` -p`指定提示语句
+- `-n`限定字符个数
+- `-t`设置等待时间
+- `-s`不显示
+
+注： 如果不指定**变量名**，那么read命令把接收到的输入放在环境变量`REPLY`中，我们可以正常使用环境变量`REPLY`。 
+
+
+
+#####  输入多个数据 
+
+```shell
+read -p "Enter your name age id_card address:" name age id_card address 
+```
+
+- 如果输入数据个数过多，远大于变量个数，则多余的所有数据都给最后一个变量 
+
+
+
+#####  读文件 
+
+```shell
+#!/bin/bash
+
+count=1
+
+cat test | while read line # cat 命令的输出作为read命令的输入, read读到的值放在line中
+
+do
+
+   echo "Line $count:$line"
+   
+   count=$[ $count + 1 ] # 注意中括号中的空格
+   
+done
+
+echo "finish"
+
+exit 0
+```
+
+- 每次调用read命令都会读取文件中的"一行"文本
+- 当文件没有可读的行时，read命令将以非零状态退出
+
+
+
 ##### 舆情项目自动部署脚本
 
 ```shell
