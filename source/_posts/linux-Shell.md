@@ -203,45 +203,80 @@ exit 0
 
 
 
+#### 四、shell函数
+
+```
+[ function ] funname [()]
+
+{
+
+    action;
+
+    [return int;]
+
+}
+```
+
+-  可以带`function fun() `定义，也可以直接`fun() `定义，不带任何参数
+-  参数返回，可以显示加：return 返回；如果不加，将以最后一条命令运行结果，作为返回值 
+-  return后跟数值`n（0-255 ）`
+
+
+
 ##### 舆情项目自动部署脚本
 
 ```shell
 #!/bin/sh
 
-git reset --hard
+# 配置免密
+function setPasswordFree() {
+  echo "Set up password-free login"
+  echo "https://username:password@github.com" >~/.git-credentials
+  git config --global credenttial.helper store
+}
 
-git pull
+# 去掉免密
+function removePasswordFree() {
+  echo "Remove password-free login"
+  rm -rf ~/.git-credentials
+  git config --global credenttial.helper store
+}
 
-if [ $? -eq 0 ]; then # 上一个命令执行成功
+# 更新代码
+function pull() {
+  echo "Try to pull the code"
+  git reset --hard
+  git pull
+}
 
-    echo "login git account successful!"
+# 跑程序
+function run() {
+  # 设置默认参数
+  ENV=$1
+  if [ $# -eq 0 ]; then
+    ENV="prod"
+  fi
 
-    ENV=$1
+  echo "The current environment parameter variable is ${ENV}"
+  echo "Building program"
+  mvn clean package -P $ENV
+  cd target
+  sh stop.sh
+  sh start.sh
+  tail -f EpsmWebApplication.log
+}
 
-    if [ $# -eq 0 ]; then # 设置默认参数
+setPasswordFree
+pull
+pullRet=$?
+removePasswordFree
 
-        ENV="prod"
-    fi
-
-    echo "ENV=${ENV}"
-
-    mvn clean package -P $ENV
-
-    echo "building"
-
-    cd target
-
-    sh stop.sh
-
-    sh start.sh
-
-    tail -f EpsmWebApplication.log
-
+# 如果免密失效，转成手动输入
+if [ $pullRet -eq 0 ]; then
+  run
 else
-
-    echo "login git account fail!"
-    exit 1
-
+  echo "Password-free login is invalid, please enter it manually"
+  pull
+  run
 fi
 ```
-
